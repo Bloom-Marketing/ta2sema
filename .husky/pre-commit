@@ -1,2 +1,17 @@
 yarn lint-staged
 yarn type-check
+
+##===============================================================
+## Prevent commiting to main or staging
+branch="$(git rev-parse --abbrev-ref HEAD)"
+echo ""
+echo "Current Branch: $branch"
+echo ""
+
+if ["$branch" = "main" || "$branch" = "staging"]; then
+  echo "You can't commit directly to the $branch branch"
+  exit 1
+fi
+
+echo "You can commit directly to the $branch branch"
+##===============================================================
