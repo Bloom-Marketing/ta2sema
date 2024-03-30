@@ -17,3 +17,9 @@ jobs:
         run: npm install -g yarn && yarn
       - name: Run Unit Tests
         run: yarn test
+      - name: 'Report Coverage'
+        if: always()
+        uses: davelosert/vitest-coverage-report-action@v2
+        with:
+          name: 'Frontend Unit Tests'
+          file-coverage-mode: 'change'
