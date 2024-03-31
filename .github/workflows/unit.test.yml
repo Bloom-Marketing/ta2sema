@@ -1,0 +1,25 @@
+name: Unit Tests
+on:
+  push:
+    branches: [main, staging]
+  pull_request:
+    branches: [main, staging]
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - name: Install dependencies
+        run: npm install -g yarn && yarn
+      - name: Run Unit Tests
+        run: yarn test
+      - name: 'Report Coverage'
+        if: always()
+        uses: davelosert/vitest-coverage-report-action@v2
+        with:
+          name: 'Frontend Unit Tests'
+          file-coverage-mode: 'change'
